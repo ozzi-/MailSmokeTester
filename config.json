@@ -1,0 +1,33 @@
+{
+  "settings":{
+    "sleep_before_get_mails": "20",
+    "debug_protocols": false
+  },
+
+  "Gmail": {
+    "address": "some@gmail.com",
+    "login": "some@gmail.com",
+    "pw": "*********************",
+    "inbox_folder_name": "INBOX",
+    "host_imap": "imap.gmail.com",
+    "port_imap": "993",
+    "secure_imap": true,
+    "host_smtp": "smtp.gmail.com",
+    "port_smtp": "587",
+    "secure_smtp": true,
+    "trust_all_certs": false
+  },
+
+  "Internal": {
+    "address": "test@internalmail.ch",
+    "login": "test@internalmail.ch",
+    "pw": "********",
+    "inbox_folder_name": "INBOX",
+    "host": "mail.internalmail.ch",
+    "port_smtp": "25",
+    "port_imap": "143",
+    "secure": true,
+    "trust_all_certs": true
+  }
+
+}
