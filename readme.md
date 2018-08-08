@@ -52,7 +52,7 @@ Loading Mail Accounts
 
 Loading Testcases
   |_ Test 1
-  |_ Test 1
+  |_ Test 2
 
 Clearing Inboxes
   |__ Gmail
