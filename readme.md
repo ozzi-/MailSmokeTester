@@ -40,7 +40,6 @@ testcases.json contains all the testcases you wish to run. The following example
     "subject_contain"        :"E-Mail contained malicious content",
     "content_not_contain"    :"MALICIOUS STUFF!"
   },
-  },
   "Test 3 - Drop Mail":{
     "from"                   :"Gmail",
     "to"                     :"Internal",
