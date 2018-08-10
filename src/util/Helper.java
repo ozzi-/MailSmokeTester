@@ -8,7 +8,7 @@ public class Helper {
 	public static void sleep(int s) {
 		int ms = s*1000;
 		try {
-			System.out.println("  |__ Sleeping for "+s+" s");
+			System.out.println(Settings.indentMarker+"Sleeping for "+s+" s");
 		    Thread.sleep(ms);
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();

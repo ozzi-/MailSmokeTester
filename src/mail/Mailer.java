@@ -194,7 +194,7 @@ public class Mailer {
 
 	public static ArrayList<Mail> getMessages(MailAccount mailAccount) {
 		ArrayList<Mail> mailsReceived = Mailer.listMessagesIMAP(mailAccount.getHostImap(), mailAccount.getPortImap(), mailAccount.isSecureImap(), mailAccount.getLogin(), mailAccount.getPw(), mailAccount.getInboxFolderName(), mailAccount.isTrustAllCerts());
-		System.out.println("  |__ "+mailAccount.getAccountName()+" received "+mailsReceived.size()+" mails");
+		System.out.println(Settings.indentMarker+mailAccount.getAccountName()+" received "+mailsReceived.size()+" mails");
 		return mailsReceived;
 	}
 }

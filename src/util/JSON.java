@@ -40,12 +40,13 @@ public class JSON {
 				String subjectNotContain	= exists(testCaseJSON, "subject_not_contain")?testCaseJSON.getString("subject_not_contain"):null;
 				String contentContain		= exists(testCaseJSON, "content_contain")?testCaseJSON.getString("content_contain"):null;
 				String contentNotContain	= exists(testCaseJSON, "content_not_contain")?testCaseJSON.getString("content_not_contain"):null;
-				TestCase tc = new TestCase(testCaseName, from, to, subject, content, subjectContain, subjectNotContain, contentContain, contentNotContain);
+				boolean shouldNotBeReceived	= exists(testCaseJSON, "should_not_be_received")?testCaseJSON.getBoolean("should_not_be_received"):false;
+				TestCase tc = new TestCase(testCaseName, from, to, subject, content, subjectContain, subjectNotContain, contentContain, contentNotContain, shouldNotBeReceived);
 				if(exists(testCaseJSON, "header")) {
 					tc.setHeader(testCaseJSON.getString("header"));
 				}
 				tcl.add(tc);
-				System.out.println("  |_ "+testCaseName);
+				System.out.println(Settings.indentMarker+testCaseName);
 			}
 		} catch (Exception e) {
 			System.err.println("Error parsing testcases file at object \""+curTC+"\"");
@@ -120,7 +121,7 @@ public class JSON {
 
 					boolean trustAllCerts = exists(mailAccountJSON, "trust_all_certs")?mailAccountJSON.getBoolean("trust_all_certs"):false;
 					mal.add(new MailAccount(item, address, login, pw, inboxFolderName, hostSmtp, portSmtp, secureSmtp, hostImap, portImap, secureImap, trustAllCerts));
-					System.out.println("  |_ "+item+" ("+address+")");
+					System.out.println(Settings.indentMarker+item+" ("+address+")");
 				}
 			}
 		} catch (Exception e) {

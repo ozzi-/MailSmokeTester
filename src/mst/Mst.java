@@ -27,14 +27,17 @@ public class Mst {
 		/** Clearing all Inboxes **/
 		System.out.println("\r\nClearing Inboxes");
 		for (MailAccount mailAccount : mal) {
-			System.out.println("  |__ "+mailAccount.getAccountName());
+			System.out.println(Settings.indentMarker+mailAccount.getAccountName());
 			Mailer.clearFolderIMAP(mailAccount);
 		}
 
 		/** Sending Mails **/
+		System.out.println("\r\nSending Mails");
+		System.out.print(Settings.indentMarker);
 		for (TestCase testCase : tcl) {
 			testCase.send();
 		}
+		System.out.println("");
 		Helper.sleep(Settings.sleepBeforeGetMails);
 
 		/** Receive **/

@@ -19,11 +19,12 @@ public class TestCase {
 	private String contentDoesNotContain;
 	private String header;
 	private boolean sensitivityHeader;
+	private boolean shouldNotBeReceived;
 	
 	private static int testCaseCounter = 1;
 
 	public TestCase(String testCaseName, MailAccount from, MailAccount to, String subject, String content, String subjectContain, 
-			String subjectNotContain, String contentContain, String contentNotContain) {
+			String subjectNotContain, String contentContain, String contentNotContain, boolean shouldNotBeReceived) {
 		testCaseCounter++;
 		this.setTestCaseName(testCaseName);
 		this.setFrom(from);
@@ -35,10 +36,12 @@ public class TestCase {
 		this.setDoesNotContain(subjectDoesNotContain);
 		this.setContentContain(contentContain);
 		this.setContentDoesNotContain(contentDoesNotContain);
-		this.setSensitivityHeader(sensitivityHeader);		
+		this.setSensitivityHeader(sensitivityHeader);
+		this.setShouldNotBeReceived(shouldNotBeReceived);
 	}
 
 	public void send() {
+		System.out.print(". ");
 		if(header == null) {
 			Mailer.send(from,to,subject,content);			
 		}else {
@@ -59,55 +62,61 @@ public class TestCase {
 		for (Mail mailObj : mails) {
 			if(mailObj.getSubject().contains(subjectID)) {
 				mailFound = true;
-				if(subjectContain!=null) {
-					if(mailObj.getSubject().contains(subjectContain)) {
-						subjectContainPass=true;
-					}
-				}else {
+				if(subjectContain != null && mailObj.getSubject().contains(subjectContain)) {
 					subjectContainPass=true;
 				}
-				if(subjectDoesNotContain!=null) {
-					if(!mailObj.getSubject().contains(subjectDoesNotContain)) {
-						subjectDoesNotContainPass=true;
-					}
-				}else {
+
+				if(subjectContain != null && !mailObj.getSubject().contains(subjectDoesNotContain)) {
 					subjectDoesNotContainPass=true;
 				}
-				if(contentContain!=null) {
-					if(mailObj.getContent().contains(contentContain)) {
-						contentContainPass=true;
-					}
-				}else {
+
+				if(subjectContain != null && mailObj.getContent().contains(contentContain)) {
 					contentContainPass=true;
 				}
-				if(contentDoesNotContain!=null) {
-					if(!mailObj.getContent().contains(contentDoesNotContain)) {
-						contentDoesNotContainPass=true;
-					}
-				}else {
+
+				if(subjectContain != null && !mailObj.getContent().contains(contentDoesNotContain)) {
 					contentDoesNotContainPass=true;
 				}
 			}
 		}
 		
-		boolean passed = mailFound && subjectContainPass && subjectDoesNotContainPass && contentContainPass && contentDoesNotContainPass;
+		if(subjectContain==null) {
+			subjectContainPass=true;
+		}
+		if(subjectDoesNotContain==null) {
+			subjectDoesNotContainPass=true;
+		}
+		if(contentContain==null) {
+			contentContainPass=true;
+		}
+		if(contentDoesNotContain==null) {
+			contentDoesNotContainPass=true;
+		}
+		
 		String reasonFailed ="";
-		if(!passed) {
-			if(!mailFound) {
-				reasonFailed = "could not find mail!";
-			}else {
-				String reasonSubjectContainFail			= subjectContainPass			?"":"NOT containing in subject *"+subjectContain+"*";
-				String reasonSubjectDoesNotContainFail	= subjectDoesNotContainPass		?"":"containing in subject *"+subjectDoesNotContain+"*";
-				String reasonContentContainFail 		= contentContainPass			?"":"NOT containing in content *"+contentContain+"*";
-				String reasonContentDoesNotContainFail	= contentDoesNotContainPass		?"":"containing in content *"+contentDoesNotContain+"*";
-
-				reasonFailed =	reasonSubjectContainFail+
-								(reasonSubjectContainFail.equals("")?"":" and ")+
-								reasonSubjectDoesNotContainFail+
-								(reasonSubjectDoesNotContainFail.equals("")?"":" and ")+
-								reasonContentContainFail+
-								(reasonContentContainFail.equals("")?"":" and ")+
-								reasonContentDoesNotContainFail;
+		boolean passed = ((shouldNotBeReceived && !mailFound) || (!shouldNotBeReceived && mailFound)) && subjectContainPass && subjectDoesNotContainPass && contentContainPass && contentDoesNotContainPass;
+		if (shouldNotBeReceived && mailFound) {
+			passed=false;
+			reasonFailed="mail should have not been received but was found in the inbox of the recipient";
+		}else {
+			if(!passed) {
+				if(!mailFound && !shouldNotBeReceived) {
+					reasonFailed = "could not find mail in inbox of the recipient!";
+				}else {
+					System.out.println("SUBJECT CONTAIN PASS !!" +subjectContainPass);
+					String reasonSubjectContainFail			= subjectContainPass			?"":"NOT containing in subject *"+subjectContain+"*";
+					String reasonSubjectDoesNotContainFail	= subjectDoesNotContainPass		?"":"containing in subject *"+subjectDoesNotContain+"*";
+					String reasonContentContainFail 		= contentContainPass			?"":"NOT containing in content *"+contentContain+"*";
+					String reasonContentDoesNotContainFail	= contentDoesNotContainPass		?"":"containing in content *"+contentDoesNotContain+"*";
+					
+					reasonFailed =	reasonSubjectContainFail+
+							(reasonSubjectContainFail.equals("")?"":" and ")+
+							reasonSubjectDoesNotContainFail+
+							(reasonSubjectDoesNotContainFail.equals("")?"":" and ")+
+							reasonContentContainFail+
+							(reasonContentContainFail.equals("")?"":" and ")+
+							reasonContentDoesNotContainFail;
+				}
 			}
 		}
 		System.out.println("  |__ "+(passed?"✓":"x")+" "+testCaseName+" "+(passed?"passed":"failed due to: "+reasonFailed));
@@ -216,5 +225,13 @@ public class TestCase {
 
 	public void setSubjectID(String subjectID) {
 		this.subjectID = subjectID;
+	}
+
+	public boolean isShouldNotBeReceived() {
+		return shouldNotBeReceived;
+	}
+
+	public void setShouldNotBeReceived(boolean shouldNotBeReceived) {
+		this.shouldNotBeReceived = shouldNotBeReceived;
 	}
 }
