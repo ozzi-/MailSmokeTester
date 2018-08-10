@@ -26,19 +26,27 @@ testcases.json contains all the testcases you wish to run. The following example
 ```
 {
   "Test 1":{
-    "from"                  :"Gmail",
-    "to"                    :"Internal",
-    "subject"               :"Some Subject",
-    "content"               :"Content!",
-    "subject_contain"       :"Some Subject [Virus checked]"
+    "from"                   :"Gmail",
+    "to"                     :"Internal",
+    "subject"                :"Some Subject",
+    "content"                :"Content!",
+    "subject_contain"        :"Some Subject [Virus checked]"
   },
   "Test 2":{
-    "from"                  :"Gmail",
-    "to"                    :"Internal",
-    "subject"               :"Some Malicious Stuff",
-    "content"               :"MALICIOUS STUFF! X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
-    "subject_contain"       :"E-Mail contained malicious content",
-    "content_not_contain"   :"MALICIOUS STUFF!"
+    "from"                   :"Gmail",
+    "to"                     :"Internal",
+    "subject"                :"Some Malicious Stuff",
+    "content"                :"MALICIOUS STUFF! X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
+    "subject_contain"        :"E-Mail contained malicious content",
+    "content_not_contain"    :"MALICIOUS STUFF!"
+  },
+  },
+  "Test 2":{
+    "from"                   :"Gmail",
+    "to"                     :"Internal",
+    "subject"                :"Some Malicious Stuff",
+    "content"                :"The subject will trigger a rule in the recipient inbox to delete the mail",
+    "should_not_be_received" :true
   }
 }
 ```
@@ -66,6 +74,6 @@ Receiving Mails
 Checking Testcases
   |__ ✓ Test 1 passed
   |__ x Test 2 failed due to: Subject does not contain "E-Mail contained malicious content"
-
+  |__ ✓ Test 3 passed
 
 ```
