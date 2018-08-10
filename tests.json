@@ -10,8 +10,15 @@
     "from"                  :"Gmail",
     "to"                    :"Internal",
     "subject"               :"Some Malicious Stuff",
-    "content"               :"MALICIOUS STUFF! X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
+    "content"               :"MALICIOUS STUFF! X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
     "subject_contain"       :"E-Mail contained malicious content",
     "content_not_contain"   :"MALICIOUS STUFF!"
+  },
+  "Test 3 - Drop Mail":{
+    "from"                   :"Gmail",
+    "to"                     :"Internal",
+    "subject"                :"Subject [RULE TRIGGER DELETE]",
+    "content"                :"The subject will trigger a rule in the recipient inbox to delete the mail",
+    "should_not_be_received" :true
   }
 }
