@@ -14,4 +14,11 @@
     "subject_contain"       :"E-Mail contained malicious content",
     "content_not_contain"   :"MALICIOUS STUFF!"
   }
+  "Test 3 - Drop Mail":{
+    "from"                   :"Gmail",
+    "to"                     :"Internal",
+    "subject"                :"Subject [RULE TRIGGER DELETE]",
+    "content"                :"The subject will trigger a rule in the recipient inbox to delete the mail",
+    "should_not_be_received" :true
+  }
 }
