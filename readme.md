@@ -36,7 +36,7 @@ testcases.json contains all the testcases you wish to run. The following example
     "from"                   :"Gmail",
     "to"                     :"Internal",
     "subject"                :"Some Malicious Stuff",
-    "content"                :"MALICIOUS STUFF! X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
+    "content"                :"MALICIOUS STUFF! X5O!P%@AP[4\\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*",
     "subject_contain"        :"E-Mail contained malicious content",
     "content_not_contain"    :"MALICIOUS STUFF!"
   },
