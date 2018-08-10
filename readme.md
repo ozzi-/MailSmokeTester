@@ -25,14 +25,14 @@ Where config.json contains all the necessary mail account information as well as
 testcases.json contains all the testcases you wish to run. The following example will send an emails from gmail to a local mail server, once clean, once containing a virus (EICAR string) and see if the local mail server will remove the malicious mail.
 ```
 {
-  "Test 1":{
+  "Test 1 - Virus Check Success":{
     "from"                   :"Gmail",
     "to"                     :"Internal",
     "subject"                :"Some Subject",
     "content"                :"Content!",
     "subject_contain"        :"Some Subject [Virus checked]"
   },
-  "Test 2":{
+  "Test 2 - Malicious Mail":{
     "from"                   :"Gmail",
     "to"                     :"Internal",
     "subject"                :"Some Malicious Stuff",
@@ -41,10 +41,10 @@ testcases.json contains all the testcases you wish to run. The following example
     "content_not_contain"    :"MALICIOUS STUFF!"
   },
   },
-  "Test 2":{
+  "Test 3 - Drop Mail":{
     "from"                   :"Gmail",
     "to"                     :"Internal",
-    "subject"                :"Some Malicious Stuff",
+    "subject"                :"Subject [RULE TRIGGER DELETE]",
     "content"                :"The subject will trigger a rule in the recipient inbox to delete the mail",
     "should_not_be_received" :true
   }
