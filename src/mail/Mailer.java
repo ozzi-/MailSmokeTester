@@ -49,8 +49,7 @@ public class Mailer {
 			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
 			msg.addHeader("format", "flowed");
 			msg.addHeader("Content-Transfer-Encoding", "8bit");
-			if(header != null) {
-				// TODO test header while parsing
+			if(header != null && !header.equals("") && header.contains(":") && header.length()>3) {
 				String headerName	= header.substring(0, header.indexOf(":"));
 				String headerValue	= header.substring(header.indexOf(":"));
 				msg.addHeader(headerName, headerValue);				
